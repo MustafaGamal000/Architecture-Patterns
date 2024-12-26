@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.example.sqlServer_jpa.repository.active_mq",
+        basePackages = "com.example.sqlServer_jpa.adapters.persistence.secondary",
         entityManagerFactoryRef = "secondaryEntityManagerFactory",
         transactionManagerRef = "secondaryTransactionManager"
 )
@@ -26,28 +26,12 @@ public class SecondaryDataSourceConfig {
     @Value("${secondary.datasource.url}")
     private String url;
     @Value("${secondary.datasource.username}")
-
     private String username;
     @Value("${secondary.datasource.password}")
-
     private String password;
     @Value("${secondary.datasource.driver-class-name}")
-
     private String driverClassName;
 
-//    @Bean(name = "secondaryDataSource")
-//    public DataSource dataSource() {
-//        // Explicitly specify the HikariDataSource type for consistent behavior
-//        return DataSourceBuilder.create().type(HikariDataSource.class).build();
-//    }
-
-//    @Bean(name = "secondaryDataSource")
-//    @ConfigurationProperties(prefix = "secondary.datasource")
-//    public DataSource dataSource() {
-//        DataSource dataSource = DataSourceBuilder.create().build();
-//        System.out.println("Secondary DataSource URL: " + ((HikariDataSource) dataSource).getJdbcUrl());
-//        return dataSource;
-//    }
 
     @Bean(name = "secondaryDataSource")
     public DataSource dataSource() {
@@ -65,7 +49,7 @@ public class SecondaryDataSourceConfig {
             @Qualifier("secondaryDataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("com.example.sqlServer_jpa.entity.active_mq")
+                .packages("com.example.sqlServer_jpa.core.domain")
                 .persistenceUnit("activeMQLock")
                 .build();
     }

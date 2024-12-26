@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.example.sqlServer_jpa.repository.question",
+        basePackages = "com.example.sqlServer_jpa.adapters.persistence.primary",
         entityManagerFactoryRef = "primaryEntityManagerFactory",
         transactionManagerRef = "primaryTransactionManager"
 )
@@ -50,34 +50,6 @@ public class PrimaryDataSourceConfig {
                 .build();
     }
 
-//    @Primary
-//    @Bean(name = "primaryDataSource")
-//    @ConfigurationProperties(prefix = "spring.datasource") // Binds to spring.datasource properties
-//    public DataSource dataSource() {
-//        // Ensure HikariDataSource is explicitly used for type safety
-//        return DataSourceBuilder.create().type(HikariDataSource.class).build();
-//    }
-
-/*    @Primary
-    @Bean(name = "primaryDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource dataSource() {
-        DataSource dataSource = DataSourceBuilder.create().build();
-        System.out.println("Primary DataSource URL: " + ((HikariDataSource) dataSource).getJdbcUrl());
-        return dataSource;
-    }
- */
-//    @Bean(name = "primaryDataSource")
-//    @Primary
-//    public DataSource dataSource() {
-//        HikariDataSource dataSource = new HikariDataSource();
-//        dataSource.setJdbcUrl("jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=questionsdb");
-//        dataSource.setUsername("sa");
-//        dataSource.setPassword("sa");
-//        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//        return dataSource;
-//    }
-
     @Primary
     @Bean(name = "primaryEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
@@ -85,7 +57,7 @@ public class PrimaryDataSourceConfig {
             @Qualifier("primaryDataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("com.example.sqlServer_jpa.entity.question")
+                .packages("com.example.sqlServer_jpa.core.domain")
                 .persistenceUnit("question")
                 .build();
     }

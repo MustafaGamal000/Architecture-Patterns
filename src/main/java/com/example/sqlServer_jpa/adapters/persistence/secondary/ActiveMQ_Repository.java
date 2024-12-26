@@ -1,4 +1,4 @@
-package com.example.sqlServer_jpa.adapters.persistence;
+package com.example.sqlServer_jpa.adapters.persistence.secondary;
 
 import com.example.sqlServer_jpa.core.domain.ActiveMQLock;
 import org.springframework.data.jpa.repository.JpaRepository;

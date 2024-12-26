@@ -1,4 +1,4 @@
-package com.example.sqlServer_jpa.adapters.persistence;
+package com.example.sqlServer_jpa.adapters.persistence.primary;
 
 import com.example.sqlServer_jpa.core.domain.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
